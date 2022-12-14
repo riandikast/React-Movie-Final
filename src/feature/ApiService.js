@@ -19,3 +19,14 @@ export const getMovie = async () => {
           console.log(error)
       }
   }
+
+  export const getRecommended = async () => {
+    try {
+        const response = await fetch(`https://627baa05a01c46a85322c5f7.mockapi.io/RecMovieAndika`);
+        const json = await response.json();
+ 
+        return json;
+    } catch (error) {
+        console.log(error)
+    }
+}

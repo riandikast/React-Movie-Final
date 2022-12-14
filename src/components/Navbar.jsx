@@ -1,6 +1,8 @@
 import { useAtom, atom } from "jotai";
+import { useState } from "react";
 import { ReactComponent as Moon } from "../assets/Moon.svg";
 import { ReactComponent as Sun } from "../assets/Sun.svg";
+import { searchCountryByName } from "../feature/searchMovie";
 export const themeState = atom(false);
 export const showNavState = atom(false);
 
@@ -22,17 +24,22 @@ function Navbar() {
           MovieList
         </h1>
       </div>
-      <div className="relative">
-        <input
-          placeholder="What do you want to watch?"
-          className="p-1 px-3 text-[#ffffff] rounded-md bg-transparent border-2 border-white placeholder-white w-auto md:w-[500px]"
-        />
-        <img
-          src="/search.svg"
-          alt="logo"
-          className="w-4 h-4 absolute right-3 bottom-2.5"
-        />
-      </div>
+      <form action="/" method="GET">
+        <div className="relative">
+          <input
+            placeholder="What do you want to watch?"
+            className="p-1 px-3 text-[#ffffff] rounded-md bg-transparent border-2 border-white placeholder-white w-auto md:w-[500px]"
+            name="search"
+            type="search"
+            autoComplete="off"
+          />
+          <img
+            src="/search.svg"
+            alt="logo"
+            className="w-4 h-4 absolute right-3 bottom-2.5"
+          />
+        </div>
+      </form>
       <div>
         <button
           onClick={() => setDarkMode(darkMode ? false : true)}
@@ -41,7 +48,6 @@ function Navbar() {
           {themeIcon()}
         </button>
       </div>
-      <div></div>
     </div>
   );
 }

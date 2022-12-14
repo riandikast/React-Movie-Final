@@ -3,14 +3,21 @@ import React, { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import { themeState } from "../components/Navbar";
 import Carousel from "better-react-carousel";
-import { getMovie, getBanner } from "../feature/ApiService";
+import { getMovie, getBanner, getRecommended } from "../feature/ApiService";
 import CardHome from "../components/CardHome";
 import Banner from "../components/Banner";
+import { filterCountryByName } from "../feature/searchMovie";
 
 function Home() {
   const [darkMode, setDarkMode] = useAtom(themeState);
   const [data, setData] = useState([]);
   const [banner, setBanner] = useState([]);
+  const [allMovie, setAllMovie] = useState([]);
+  const [recommended, setRecommended] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
+  const [refresh, setRefresh] = useState();
+  const queryParams = new URLSearchParams(window.location.search);
+  let search = queryParams.get("search");
 
   const transition = { duration: 0.3, ease: [0.43, 0.13, 0.23, 0.96] };
   const pageVariants = {
@@ -25,17 +32,40 @@ function Home() {
 
   const fetchApiCall = async () => {
     const movieList = await getMovie();
-    const banner = await getBanner();
+    const bannerList = await getBanner();
+    const recommendedList = await getRecommended();
     setData(movieList);
-    setBanner(banner);
-    console.log("a", banner);
+    setBanner(bannerList);
+    setRecommended(recommendedList)
+    setAllMovie([...movieList, ...bannerList, ...recommendedList])
+    console.log("a", allMovie);
   };
 
   const listProduct = () => {
-    return data?.map((item) => (
+    if (search == null) {
+      return data?.map((item) => (
+        <CardHome id={item.id} title={item.title} image={item.image} />
+    ));
+    }
+    return searchResult?.map((item) => (
       <CardHome id={item.id} title={item.title} image={item.image} />
     ));
   };
+
+  useEffect(() => {
+    allMovie.filter((item) => {
+      if (item.title.toLowerCase().includes(search.toLowerCase())){
+        // searchResult?.map((result) => {
+          //   if (result.title !== item.title) {
+            setSearchResult([item])
+            //   }
+            // })
+          }
+        })
+ 
+    
+  }, [searchResult])
+
 
   const listBanner = () => {
     return (
