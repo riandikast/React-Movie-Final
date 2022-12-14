@@ -14,8 +14,8 @@ function Home() {
   const [banner, setBanner] = useState([]);
   const [allMovie, setAllMovie] = useState([]);
   const [recommended, setRecommended] = useState([]);
-  const [searchResult, setSearchResult] = useState([]);
-  const [refresh, setRefresh] = useState();
+
+
   const queryParams = new URLSearchParams(window.location.search);
   let search = queryParams.get("search");
 
@@ -36,8 +36,8 @@ function Home() {
     const recommendedList = await getRecommended();
     setData(movieList);
     setBanner(bannerList);
-    setRecommended(recommendedList)
-    setAllMovie([...movieList, ...bannerList, ...recommendedList])
+    setRecommended(recommendedList);
+    setAllMovie([...movieList, ...bannerList, ...recommendedList]);
     console.log("a", allMovie);
   };
 
@@ -45,27 +45,28 @@ function Home() {
     if (search == null) {
       return data?.map((item) => (
         <CardHome id={item.id} title={item.title} image={item.image} />
-    ));
-    }
-    return searchResult?.map((item) => (
-      <CardHome id={item.id} title={item.title} image={item.image} />
-    ));
-  };
-
-  useEffect(() => {
-    allMovie.filter((item) => {
-      if (item.title.toLowerCase().includes(search.toLowerCase())){
-        // searchResult?.map((result) => {
-          //   if (result.title !== item.title) {
-            setSearchResult([item])
-            //   }
-            // })
+      ));
+    } else {
+      let allMovieTemp = allMovie
+        .filter((item) => {
+          if (item.title.toLowerCase().includes(search.toLowerCase())) {
+            return item;
           }
         })
- 
-    
-  }, [searchResult])
+      
+        .map((item) => {
+          return (
+            <CardHome id={item.id} title={item.title} image={item.image} />
+          );
+        });
+        let uniqueObjArray = [
+          ...new Map(allMovieTemp.map((item) => [item["title"], item])).values(),
+          
+        ];
+        return uniqueObjArray
 
+    }
+  };
 
   const listBanner = () => {
     return (
@@ -107,7 +108,7 @@ function Home() {
       >
         <div className="ml-40 text-xl font-semibold py-3">New Movie</div>
         <div className="flex flex-col w-5/6 mx-auto  justify-center">
-        {listBanner()}
+          {listBanner()}
         </div>
         <div className="">
           <div className="text-xl font-semibold ml-28 mt-28 mb-4">

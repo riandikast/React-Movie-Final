@@ -2,7 +2,7 @@ import { useAtom, atom } from "jotai";
 import { useState } from "react";
 import { ReactComponent as Moon } from "../assets/Moon.svg";
 import { ReactComponent as Sun } from "../assets/Sun.svg";
-import { searchCountryByName } from "../feature/searchMovie";
+
 export const themeState = atom(false);
 export const showNavState = atom(false);
 
@@ -24,7 +24,7 @@ function Navbar() {
           MovieList
         </h1>
       </div>
-      <form action="/" method="GET">
+      <form>
         <div className="relative">
           <input
             placeholder="What do you want to watch?"
