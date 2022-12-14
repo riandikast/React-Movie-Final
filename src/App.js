@@ -1,17 +1,19 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Navbar from './components/Navbar';
-import Home from "./pages/Home";
-import Detail from "./pages/Detail";
-
+import Navbar from "./components/Navbar";
+import AnimatedRoutes from "./routes/AnimatedRoutes";
+import ScrollToTop from "./routes/ScrollToTop";
 function App() {
   return (
     <>
-      <Navbar />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movie/:id" element={<Detail />} />
-        </Routes>
+        <ScrollToTop />
+        <div className="w-screen top-0 fixed z-50">
+          <Navbar />
+        </div>
+
+        <div className="justify-center items-center mt-20 z-0">
+          <AnimatedRoutes></AnimatedRoutes>
+        </div>
       </BrowserRouter>
     </>
   );
