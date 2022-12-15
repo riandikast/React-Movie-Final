@@ -10,7 +10,7 @@ function AnimatedRoutes() {
     <AnimatePresence exitBeforeEnter initial={false}>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
-        <Route path="/movie/:id" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail />} />
       </Routes>
     </AnimatePresence>
   );

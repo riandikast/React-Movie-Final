@@ -1,20 +1,24 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react";
-import { useAtom } from "jotai";
+import { useAtom, atom } from "jotai";
 import { themeState } from "../components/Navbar";
 import Carousel from "better-react-carousel";
 import { getMovie, getBanner, getRecommended } from "../feature/ApiService";
 import CardHome from "../components/CardHome";
 import Banner from "../components/Banner";
-import { filterCountryByName } from "../feature/searchMovie";
+import { motion } from "framer-motion";
+
+export const bannerState = atom([]);
+export const dataMovieState = atom([]);
+export const recommendedState = atom([]);
+export const allMovieState = atom([]);
 
 function Home() {
   const [darkMode, setDarkMode] = useAtom(themeState);
-  const [data, setData] = useState([]);
-  const [banner, setBanner] = useState([]);
-  const [allMovie, setAllMovie] = useState([]);
-  const [recommended, setRecommended] = useState([]);
-
+  const [dataMovie, setDataMovie] = useAtom(dataMovieState);
+  const [banner, setBanner] = useAtom(bannerState);
+  const [allMovie, setAllMovie] = useAtom(allMovieState);
+  const [recommended, setRecommended] = useAtom(recommendedState);
 
   const queryParams = new URLSearchParams(window.location.search);
   let search = queryParams.get("search");
@@ -34,7 +38,7 @@ function Home() {
     const movieList = await getMovie();
     const bannerList = await getBanner();
     const recommendedList = await getRecommended();
-    setData(movieList);
+    setDataMovie(movieList);
     setBanner(bannerList);
     setRecommended(recommendedList);
     setAllMovie([...movieList, ...bannerList, ...recommendedList]);
@@ -43,8 +47,8 @@ function Home() {
 
   const listProduct = () => {
     if (search == null) {
-      return data?.map((item) => (
-        <CardHome id={item.id} title={item.title} image={item.image} />
+      return dataMovie?.map((item) => (
+        <CardHome  width={'w-32'} height={'h-32'} id={item.id} title={item.title} image={item.image} demo={item.demo} synopsis={item.synopsis} releaseDate={item.release_date} director={item.director} type={item.type} />
       ));
     } else {
       let allMovieTemp = allMovie
@@ -53,18 +57,16 @@ function Home() {
             return item;
           }
         })
-      
+
         .map((item) => {
           return (
-            <CardHome id={item.id} title={item.title} image={item.image} />
+            <CardHome width={'w-32'} height={'h-32'} id={item.id} title={item.title} image={item.image}  demo={item.demo} synopsis={item.synopsis} releaseDate={item.release_date} director={item.director} type={item.type}  />
           );
         });
-        let uniqueObjArray = [
-          ...new Map(allMovieTemp.map((item) => [item["title"], item])).values(),
-          
-        ];
-        return uniqueObjArray
-
+      let uniqueObjArray = [
+        ...new Map(allMovieTemp.map((item) => [item["title"], item])).values(),
+      ];
+      return uniqueObjArray;
     }
   };
 
@@ -86,7 +88,7 @@ function Home() {
           {banner?.map((item) => {
             return (
               <Carousel.Item>
-                <Banner id={item.id} title={item.title} image={item.banner} />
+                <Banner id={item.id} title={item.title} image={item.image} banner={item.banner} demo={item.demo} synopsis={item.synopsis} releaseDate={item.release_date} director={item.director} type={item.type} />
               </Carousel.Item>
             );
           })}
@@ -95,30 +97,34 @@ function Home() {
     );
   };
 
-  const saveLastTheme =()=> {
+  const saveLastTheme = () => {
     localStorage.setItem("theme", JSON.stringify(darkMode));
-  }
+  };
 
-  const restoreLastTheme = ()=> {
+  const restoreLastTheme = () => {
     const theme = localStorage.getItem("theme", JSON.stringify(darkMode));
-    setDarkMode(theme)
-  }
+    setDarkMode(theme);
+  };
 
   useEffect(() => {
     fetchApiCall();
-    restoreLastTheme()
+    restoreLastTheme();
   }, []);
 
   useEffect(() => {
-    saveLastTheme()
+    saveLastTheme();
   }, [darkMode]);
 
   return (
     <>
-      <div
+      <motion.div
         className={`w-full h-screens ${
           darkMode ? "bg-[#192026] text-white" : "bg-[#ffffff] text-black"
         }`}
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={pageVariants}
       >
         <div className="ml-40 text-xl font-semibold py-3">New Movie</div>
         <div className="flex flex-col w-5/6 mx-auto  justify-center">
@@ -130,7 +136,7 @@ function Home() {
           </div>
           <div className="flex flex-row mx-auto  w-5/6">{listProduct()}</div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

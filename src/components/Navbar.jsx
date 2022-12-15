@@ -4,7 +4,7 @@ import { ReactComponent as Moon } from "../assets/Moon.svg";
 import { ReactComponent as Sun } from "../assets/Sun.svg";
 
 export const themeState = atom(false);
-export const showNavState = atom(false);
+
 
 function Navbar() {
   const [darkMode, setDarkMode] = useAtom(themeState);
