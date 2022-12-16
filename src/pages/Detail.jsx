@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import { themeState } from "../components/Navbar";
 import {
-  dataMovieState,
-  bannerState,
-  allMovieState,
   recommendedState,
 } from "./Home";
 import { getMovie, getBanner, getRecommended } from "../feature/ApiService";
