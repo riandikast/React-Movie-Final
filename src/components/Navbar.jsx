@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Moon } from "../assets/Moon.svg";
 import { ReactComponent as Sun } from "../assets/Sun.svg";
 import React, { useState, useEffect } from "react";
-
+import  Logo  from "../assets/logo.png";
 export const themeState = atom(false);
 
 
@@ -34,13 +34,13 @@ function Navbar() {
   }, []);
 
   return (
-    <div className="flex items-center justify-between px-5 md:px-10 py-3 md:py-5 absolute w-full h-20 z-10 bg-black">
-      <div className="flex items-center">
-        <img src="/logo.svg" alt="logo" className="w-10 h-10 max450:hidden" />
+    <div className={`flex items-center justify-between px-5 md:px-10 py-3 md:py-5 absolute w-full h-20 z-10 ${darkMode? 'bg-black' : 'bg-[#405189]'}`}>
+      <Link to="/" className="flex items-center">
+        <img src={Logo} alt="logo" className="w-10 h-10 max450:hidden" />
         <h1 className="mr-10 font-bold text-lg text-white md:text-2xl ml-3 hidden sm:block">
           MovieList
         </h1>
-      </div>
+      </Link>
       <div className="flex items-center">
         <form action="/" method="GET">
           <div className="relative">

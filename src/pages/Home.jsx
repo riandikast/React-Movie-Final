@@ -49,8 +49,8 @@ function Home() {
     if (search == null) {
       return dataMovie?.map((item) => (
         <CardHome
-          width={"w-full md:w-32"}
-          height={"h-40 md:h-32"}
+          width={"w-32 max1200:w-28 max700:w-24 max450:w-16"}
+          height={"h-32 max1200:h-28  max700:h-24 max450:w-16"}
           id={item.id}
           title={item.title}
           image={item.image}
@@ -72,8 +72,8 @@ function Home() {
         .map((item) => {
           return (
             <CardHome
-              width={"w-32"}
-              height={"h-32"}
+              width={"w-32 max1200:w-28 max700:w-24 max450:w-16"}
+              height={"h-32 max1200:h-28  max700:h-24 max450:w-16"}
               id={item.id}
               title={item.title}
               image={item.image}
@@ -96,18 +96,18 @@ function Home() {
     if (!search) {
       return (
         <>
-          <div className="flex flex-col w-full  mx-auto  justify-center mb-32">
+          <div className="flex flex-col w-full  mx-auto  justify-center mb-32 max450:mb-24">
             <Carousel
               cols={1}
               rows={1}
               gap={10}
               loop={true}
+              hideArrow={true}
               dotColorInactive={darkMode ? "#405189" : "#a8a8a8"}
               dotColorActive={darkMode ? "#f8fafc" : "#405189"}
               mobileBreakpoint={100}
               showDots={true}
               autoplay={4000}
-              scrollSnap={true}
             >
               {banner?.map((item) => {
                 return (
@@ -150,33 +150,32 @@ function Home() {
       >
         <div className="w-5/6 mx-auto">
           {!search && (
-            <div className=" text-xl font-semibold ml-20 mr-auto mb-2 ">
+            <div className=" text-xl font-semibold ml-20 mr-auto mb-2 max700:text-base max570:text-xs max700:ml-16  max450:text-[11px] max450:ml-5">
               New Movie
             </div>
           )}
 
-          {banner.length <= 0 ?  !search &&  <Loading /> : listBanner()}
+          {banner.length <= 0 ? !search && <Loading /> : listBanner()}
 
-          <div className="text-xl font-semibold ml-20  relative   ">
+          <div className="text-xl font-semibold ml-20 mb-2  relative max700:text-base max700:ml-16 max570:text-xs  max450:text-[11px]  max450:ml-5 ">
             {!search ? "Popular Movie" : "Search Result"}
           </div>
 
           {dataMovie.length <= 0 ? (
-  
             <div className="mx-auto justify-center w-full flex flex-row ">
               <Loading />
             </div>
           ) : (
             <>
               {" "}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 mx-auto  w-5/6">
+              <div className="grid grid-cols-2 max1000:grid-cols-4 max800:grid-cols-3 md:grid-cols-6 mx-auto  w-5/6  max570:grid-cols-2">
                 {" "}
                 {listProduct()}{" "}
               </div>
             </>
           )}
         </div>
-        {search && <div className="h-40"></div>}
+        {search && <div className="h-60"></div>}
       </motion.div>
     </>
   );

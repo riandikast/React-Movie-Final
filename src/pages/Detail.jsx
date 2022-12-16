@@ -55,7 +55,7 @@ function Detail() {
   return (
     <>
       <motion.div
-        className={`w-full bg-black h-screens ${
+        className={`w-full  h-screens ${
           darkMode ? "bg-[#192026] text-white" : "bg-[#ffffff] text-black"
         }`}
         initial="initial"

@@ -7,12 +7,12 @@ function CardHome({ width, height, id, title, demo, image, synopsis, director, r
   const parsingData = { id: id, title: title, image: image, demo: demo,  synopsis:synopsis, director:director, releaseDate:releaseDate, type:type  };
 
   return (
-    <div className={`${darkMode ? "#405189" : "#808080"} p-3 rounded-md`}>
+    <div className={`${darkMode ? "#405189" : "#808080"} p-2 rounded-md`}>
       <Link to={`/detail/${id}`} state={parsingData}>
         <img
           src={image}
           alt="img"
-          className={` object-contain mb-5 mx-auto ${width} ${height}`}
+          className={` object-contain mb-2 mx-auto ${width} ${height}`}
         />
         <div className="text-left">
           <p className="text-darkgreen font-bold text-[12px] line-clamp-2 text-center">
