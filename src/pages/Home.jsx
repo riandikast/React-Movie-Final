@@ -7,7 +7,7 @@ import { getMovie, getBanner, getRecommended } from "../feature/ApiService";
 import CardHome from "../components/CardHome";
 import Banner from "../components/Banner";
 import { motion } from "framer-motion";
-
+import Loading from "../components/Loading";
 export const bannerState = atom([]);
 export const dataMovieState = atom([]);
 export const recommendedState = atom([]);
@@ -96,8 +96,7 @@ function Home() {
     if (!search) {
       return (
         <>
-          <div className="ml-0 md:ml-40 text-xl font-semibold mt-0 mb-5 md:my-3">New Movie</div>
-          <div className="flex flex-col w-full md:w-5/6 mx-auto  justify-center">
+          <div className="flex flex-col w-full  mx-auto  justify-center mb-32">
             <Carousel
               cols={1}
               rows={1}
@@ -134,20 +133,14 @@ function Home() {
     }
   };
 
- 
-
-  
-
   useEffect(() => {
     fetchApiCall();
-
   }, []);
-
 
   return (
     <>
       <motion.div
-        className={`w-full h-screens py-8 ${
+        className={`w-full h-screens py-4 ${
           darkMode ? "bg-[#192026] text-white" : "bg-[#ffffff] text-black"
         }`}
         initial="initial"
@@ -156,12 +149,32 @@ function Home() {
         variants={pageVariants}
       >
         <div className="w-5/6 mx-auto">
-          {listBanner()}
+          {!search && (
+            <div className=" text-xl font-semibold ml-20 mr-auto mb-2 ">
+              New Movie
+            </div>
+          )}
 
-          <div className="text-xl font-semibold ml-0 md:ml-28 mt-10 md:mt-20 top-3 relative py-8  ">
+          {banner.length <= 0 ?  !search &&  <Loading /> : listBanner()}
+
+          <div className="text-xl font-semibold ml-20  relative   ">
             {!search ? "Popular Movie" : "Search Result"}
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 mx-auto  w-5/6">{listProduct()}</div>
+
+          {dataMovie.length <= 0 ? (
+  
+            <div className="mx-auto justify-center w-full flex flex-row ">
+              <Loading />
+            </div>
+          ) : (
+            <>
+              {" "}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 mx-auto  w-5/6">
+                {" "}
+                {listProduct()}{" "}
+              </div>
+            </>
+          )}
         </div>
         {search && <div className="h-40"></div>}
       </motion.div>
