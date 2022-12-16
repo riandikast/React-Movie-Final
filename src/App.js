@@ -11,7 +11,7 @@ function App() {
           <Navbar />
         </div>
 
-        <div className="justify-center items-center mt-20 z-0">
+        <div className="justify-center items-center mt-20 z-0 ">
           <AnimatedRoutes></AnimatedRoutes>
         </div>
       </BrowserRouter>

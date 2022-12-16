@@ -48,7 +48,18 @@ function Home() {
   const listProduct = () => {
     if (search == null) {
       return dataMovie?.map((item) => (
-        <CardHome  width={'w-32'} height={'h-32'} id={item.id} title={item.title} image={item.image} demo={item.demo} synopsis={item.synopsis} releaseDate={item.release_date} director={item.director} type={item.type} />
+        <CardHome
+          width={"w-32"}
+          height={"h-32"}
+          id={item.id}
+          title={item.title}
+          image={item.image}
+          demo={item.demo}
+          synopsis={item.synopsis}
+          releaseDate={item.release_date}
+          director={item.director}
+          type={item.type}
+        />
       ));
     } else {
       let allMovieTemp = allMovie
@@ -60,7 +71,18 @@ function Home() {
 
         .map((item) => {
           return (
-            <CardHome width={'w-32'} height={'h-32'} id={item.id} title={item.title} image={item.image}  demo={item.demo} synopsis={item.synopsis} releaseDate={item.release_date} director={item.director} type={item.type}  />
+            <CardHome
+              width={"w-32"}
+              height={"h-32"}
+              id={item.id}
+              title={item.title}
+              image={item.image}
+              demo={item.demo}
+              synopsis={item.synopsis}
+              releaseDate={item.release_date}
+              director={item.director}
+              type={item.type}
+            />
           );
         });
       let uniqueObjArray = [
@@ -71,30 +93,45 @@ function Home() {
   };
 
   const listBanner = () => {
-    return (
-      <>
-        <Carousel
-          cols={1}
-          rows={1}
-          gap={10}
-          loop={true}
-          dotColorInactive={darkMode ? "#405189" : "#a8a8a8"}
-          dotColorActive={darkMode ? "#f8fafc" : "#405189"}
-          mobileBreakpoint={100}
-          showDots={true}
-          autoplay={4000}
-          scrollSnap={true}
-        >
-          {banner?.map((item) => {
-            return (
-              <Carousel.Item>
-                <Banner id={item.id} title={item.title} image={item.image} banner={item.banner} demo={item.demo} synopsis={item.synopsis} releaseDate={item.release_date} director={item.director} type={item.type} />
-              </Carousel.Item>
-            );
-          })}
-        </Carousel>
-      </>
-    );
+    if (!search) {
+      return (
+        <>
+          <div className="ml-40 text-xl font-semibold py-3">New Movie</div>
+          <div className="flex flex-col w-5/6 mx-auto  justify-center">
+            <Carousel
+              cols={1}
+              rows={1}
+              gap={10}
+              loop={true}
+              dotColorInactive={darkMode ? "#405189" : "#a8a8a8"}
+              dotColorActive={darkMode ? "#f8fafc" : "#405189"}
+              mobileBreakpoint={100}
+              showDots={true}
+              autoplay={4000}
+              scrollSnap={true}
+            >
+              {banner?.map((item) => {
+                return (
+                  <Carousel.Item>
+                    <Banner
+                      id={item.id}
+                      title={item.title}
+                      image={item.image}
+                      banner={item.banner}
+                      demo={item.demo}
+                      synopsis={item.synopsis}
+                      releaseDate={item.release_date}
+                      director={item.director}
+                      type={item.type}
+                    />
+                  </Carousel.Item>
+                );
+              })}
+            </Carousel>
+          </div>
+        </>
+      );
+    }
   };
 
   const saveLastTheme = () => {
@@ -126,16 +163,15 @@ function Home() {
         exit="out"
         variants={pageVariants}
       >
-        <div className="ml-40 text-xl font-semibold py-3">New Movie</div>
-        <div className="flex flex-col w-5/6 mx-auto  justify-center">
-          {listBanner()}
-        </div>
+        {listBanner()}
+
         <div className="">
-          <div className="text-xl font-semibold ml-28 mt-28 mb-4">
-            Popular Movie
+          <div className="text-xl font-semibold ml-28 mt-20 top-3 relative py-8  ">
+            {!search ? "Popular Movie" : "Search Result"}
           </div>
           <div className="flex flex-row mx-auto  w-5/6">{listProduct()}</div>
         </div>
+        {search && <div className="h-40"></div>}
       </motion.div>
     </>
   );
