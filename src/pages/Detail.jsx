@@ -15,13 +15,8 @@ import { useLocation } from "react-router-dom";
 
 function Detail() {
   const [darkMode, setDarkMode] = useAtom(themeState);
-  const [dataMovie, setDataMovie] = useAtom(dataMovieState);
-  const [banner, setBanner] = useAtom(bannerState);
-  const [allMovie, setAllMovie] = useAtom(allMovieState);
   const [recommended, setRecommended] = useAtom(recommendedState);
 
-  const queryParams = new URLSearchParams(window.location.search);
-  let search = queryParams.get("search");
 
   const {
     state: { demo, image, title, synopsis, director, type, releaseDate },
@@ -46,7 +41,12 @@ function Detail() {
     },
   };
 
+  
+  const fetchApiCall = async () => {
+    const recommendedList = await getRecommended();
+    setRecommended(recommendedList);
 
+  };
   const saveLastTheme = () => {
     localStorage.setItem("theme", JSON.stringify(darkMode));
   };
@@ -74,8 +74,10 @@ function Detail() {
   };
 
   useEffect(() => {
+    fetchApiCall()
     restoreLastTheme();
   }, []);
+
 
   useEffect(() => {
     saveLastTheme();
@@ -97,7 +99,7 @@ function Detail() {
         </div>
 
         <div
-          className={`flex flex-row mt-20 ${
+          className={`flex flex-row mt-20 ml-4 ${
             darkMode ? "text-white" : "text-black"
           }`}
         >
@@ -106,8 +108,8 @@ function Detail() {
             alt="img"
             className="h-48 object-contain  ml-40 w-48"
           />
-          <div className="flex flex-col  my-auto">
-            <text className="text-2xl font-semibold mb-8">{title}</text>
+          <div className="flex flex-col  my-auto ml-4">
+            <text className="text-2xl font-semibold mb-8 mr-28 ">{title}</text>
             <text> Release Date : {releaseDate}</text>
             <text>Director : {director}</text>
           </div>
