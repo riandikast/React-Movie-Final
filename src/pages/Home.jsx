@@ -49,8 +49,8 @@ function Home() {
     if (search == null) {
       return dataMovie?.map((item) => (
         <CardHome
-          width={"w-32"}
-          height={"h-32"}
+          width={"w-full md:w-32"}
+          height={"h-40 md:h-32"}
           id={item.id}
           title={item.title}
           image={item.image}
@@ -96,8 +96,8 @@ function Home() {
     if (!search) {
       return (
         <>
-          <div className="ml-40 text-xl font-semibold py-3">New Movie</div>
-          <div className="flex flex-col w-5/6 mx-auto  justify-center">
+          <div className="ml-0 md:ml-40 text-xl font-semibold mt-0 mb-5 md:my-3">New Movie</div>
+          <div className="flex flex-col w-full md:w-5/6 mx-auto  justify-center">
             <Carousel
               cols={1}
               rows={1}
@@ -155,7 +155,7 @@ function Home() {
   return (
     <>
       <motion.div
-        className={`w-full h-screens ${
+        className={`w-full h-screens py-8 ${
           darkMode ? "bg-[#192026] text-white" : "bg-[#ffffff] text-black"
         }`}
         initial="initial"
@@ -163,13 +163,13 @@ function Home() {
         exit="out"
         variants={pageVariants}
       >
-        {listBanner()}
+        <div className="w-5/6 mx-auto">
+          {listBanner()}
 
-        <div className="">
-          <div className="text-xl font-semibold ml-28 mt-20 top-3 relative py-8  ">
+          <div className="text-xl font-semibold ml-0 md:ml-28 mt-10 md:mt-20 top-3 relative py-8  ">
             {!search ? "Popular Movie" : "Search Result"}
           </div>
-          <div className="flex flex-row mx-auto  w-5/6">{listProduct()}</div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 mx-auto  w-5/6">{listProduct()}</div>
         </div>
         {search && <div className="h-40"></div>}
       </motion.div>

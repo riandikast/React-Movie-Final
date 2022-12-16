@@ -8,9 +8,9 @@ function Banner({ id, title, demo, image, synopsis, director, releaseDate, type,
       <img
         width="90%"
         src={banner}
-        className=" mx-auto h-72 object-cover "
+        className=" mx-auto h-40 md:h-72 object-cover "
       />
-      <div className="text-2xl font-semibold ml-12 mt-2">{title}</div>
+      <div className="text-xl sm:text-2xl font-semibold ml-4 sm:ml-12 mt-2">{title}</div>
     </Link>
   );
 }
