@@ -15,7 +15,7 @@ function CardHome({ width, height, id, title, demo, image, synopsis, director, r
           className={` object-contain mb-5 mx-auto ${width} ${height}`}
         />
         <div className="text-left">
-          <p className="text-darkgreen font-bold text-[12px] line-clamp-1  text-center">
+          <p className="text-darkgreen font-bold text-[12px] line-clamp-2 text-center">
             {title}
           </p>
           <p className="text-green text-xs"></p>
