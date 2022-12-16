@@ -1,3 +1,9 @@
+# Preview
+<img width="945" alt="image" src="https://user-images.githubusercontent.com/84719581/208149693-a42bb6c8-6d8b-400c-84a5-f135a19ebdd1.png">
+
+# Demo
+https://react-movie-h8are3rvm-riandikast.vercel.app/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
