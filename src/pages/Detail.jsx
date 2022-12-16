@@ -47,14 +47,6 @@ function Detail() {
     setRecommended(recommendedList);
 
   };
-  const saveLastTheme = () => {
-    localStorage.setItem("theme", JSON.stringify(darkMode));
-  };
-
-  const restoreLastTheme = () => {
-    const theme = localStorage.getItem("theme", JSON.stringify(darkMode));
-    setDarkMode(theme);
-  };
 
   const recommendList = () => {
     return recommended?.map((item) => (
@@ -75,13 +67,10 @@ function Detail() {
 
   useEffect(() => {
     fetchApiCall()
-    restoreLastTheme();
   }, []);
 
 
-  useEffect(() => {
-    saveLastTheme();
-  }, [darkMode]);
+
 
   return (
     <>

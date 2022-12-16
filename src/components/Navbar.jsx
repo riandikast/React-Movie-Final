@@ -2,6 +2,7 @@ import { useAtom, atom } from "jotai";
 import { Link } from "react-router-dom";
 import { ReactComponent as Moon } from "../assets/Moon.svg";
 import { ReactComponent as Sun } from "../assets/Sun.svg";
+import React, { useState, useEffect } from "react";
 
 export const themeState = atom(false);
 
@@ -15,6 +16,22 @@ function Navbar() {
       return <Moon />;
     }
   };
+
+  const handleChangeTheme = () => {
+    setDarkMode(darkMode ? false : true)
+    localStorage.setItem("theme", darkMode);
+  }
+
+
+  
+  useEffect(() => {
+    const lastTheme = localStorage.getItem("theme");
+    if (lastTheme ==='true'){
+      setDarkMode(false)
+    }else{
+      setDarkMode(true)
+    }
+  }, []);
 
   return (
     <div className="flex items-center justify-between px-5 md:px-10 py-3 md:py-5 absolute w-full h-20 z-10 bg-black">
@@ -50,7 +67,7 @@ function Navbar() {
 
       <div>
         <button
-          onClick={() => setDarkMode(darkMode ? false : true)}
+          onClick={() => handleChangeTheme()}
           className="w-12 h-12 mr-3"
         >
           {themeIcon()}
