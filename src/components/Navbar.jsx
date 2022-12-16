@@ -1,5 +1,5 @@
 import { useAtom, atom } from "jotai";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ReactComponent as Moon } from "../assets/Moon.svg";
 import { ReactComponent as Sun } from "../assets/Sun.svg";
 
@@ -24,22 +24,30 @@ function Navbar() {
           MovieList
         </h1>
       </div>
-      <form>
-        <div className="relative">
-          <input
-            placeholder="What do you want to watch?"
-            className="p-1 px-3 text-[#ffffff] rounded-md bg-transparent border-2 border-white placeholder-white w-auto md:w-[500px]"
-            name="search"
-            type="search"
-            autoComplete="off"
-          />
-          <img
-            src="/search.svg"
-            alt="logo"
-            className="w-4 h-4 absolute right-3 bottom-2.5"
-          />
-        </div>
-      </form>
+      <div className="flex items-center">
+        <form action="/" method="GET">
+          <div className="relative">
+            <input
+              placeholder="What do you want to watch?"
+              className="p-1 px-3 text-[#ffffff] rounded-md bg-transparent border-2 border-white placeholder-white w-auto md:w-[500px]"
+              name="search"
+              type="search"
+              autoComplete="off"
+            />
+            <img
+              src="/search.svg"
+              alt="logo"
+              className="w-4 h-4 absolute right-3 bottom-2.5"
+            />
+          </div>
+        </form>
+        <Link to="/">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-7 h-7 ml-7">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+        </Link>
+      </div>
+
       <div>
         <button
           onClick={() => setDarkMode(darkMode ? false : true)}
